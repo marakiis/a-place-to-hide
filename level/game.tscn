@@ -1,0 +1,163 @@
+[gd_scene load_steps=13 format=3 uid="uid://8axeag6wfnyp"]
+
+[ext_resource type="Script" uid="uid://d18qtu5pm0gwv" path="res://level/game.gd" id="1_fxr6r"]
+[ext_resource type="PackedScene" uid="uid://phtk5qi0afj7" path="res://entities/Cubes/cube.tscn" id="2_agxqc"]
+[ext_resource type="PackedScene" uid="uid://ck4f0qj3vnbv8" path="res://entities/character/character.tscn" id="3_a43n5"]
+[ext_resource type="PackedScene" uid="uid://do1a8dhmu36wb" path="res://entities/child/child.tscn" id="4_vlpid"]
+[ext_resource type="PackedScene" uid="uid://b2row0uida7od" path="res://entities/table/table.tscn" id="5_wfejc"]
+[ext_resource type="Script" uid="uid://dbnbdepc0bmgw" path="res://level/dump.gd" id="6_rm35f"]
+[ext_resource type="Texture2D" uid="uid://si7ihxp5fxeq" path="res://assets/kitchen_wall.png" id="7_agxqc"]
+[ext_resource type="Texture2D" uid="uid://ebvjuxool8tj" path="res://assets/kitchen.png" id="7_fxr6r"]
+[ext_resource type="Texture2D" uid="uid://bovm4p261ub64" path="res://assets/mother.png" id="8_6e45w"]
+[ext_resource type="Texture2D" uid="uid://48ice2xv6jmk" path="res://assets/father.png" id="9_kkp00"]
+[ext_resource type="Texture2D" uid="uid://jhfhg1dgi2ds" path="res://assets/bars.png" id="10_uma06"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yihe8"]
+size = Vector2(1200, 10)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_fxr6r")
+cube_scene = ExtResource("2_agxqc")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="Persona" parent="." instance=ExtResource("3_a43n5")]
+position = Vector2(240, 470)
+collision_layer = 4
+
+[node name="Child" parent="." instance=ExtResource("4_vlpid")]
+z_index = 10
+position = Vector2(240, 625)
+script = null
+
+[node name="Table" parent="." instance=ExtResource("5_wfejc")]
+position = Vector2(240, 500)
+speed_by_load = 100.0
+
+[node name="Dump" type="Area2D" parent="."]
+z_index = 1
+position = Vector2(240, 700)
+collision_layer = 16
+collision_mask = 24
+monitorable = false
+script = ExtResource("6_rm35f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dump"]
+shape = SubResource("RectangleShape2D_yihe8")
+
+[node name="UI" type="Control" parent="."]
+z_index = 30
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 240.0
+offset_right = 242.0
+grow_horizontal = 2
+
+[node name="Panel" type="Panel" parent="UI"]
+layout_mode = 0
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+
+[node name="Score" type="RichTextLabel" parent="UI/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_colors/default_color = Color(1, 1, 0, 1)
+text = "0
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Kitchen" type="Node2D" parent="."]
+
+[node name="KitchenWall" type="Sprite2D" parent="Kitchen"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(240, 320)
+scale = Vector2(4, 4)
+texture = ExtResource("7_agxqc")
+region_enabled = true
+region_rect = Rect2(0, 0, 120, 160)
+
+[node name="KitchenFloor" type="Sprite2D" parent="Kitchen"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(240, 650)
+scale = Vector2(2, 2)
+texture = ExtResource("7_fxr6r")
+region_enabled = true
+region_rect = Rect2(0, 0, 240, 10)
+
+[node name="Parents" type="Node2D" parent="."]
+z_index = 1
+
+[node name="Mother" type="Sprite2D" parent="Parents"]
+position = Vector2(65, 336)
+scale = Vector2(12, 12)
+texture = ExtResource("8_6e45w")
+
+[node name="Father" type="Sprite2D" parent="Parents"]
+position = Vector2(385, 336)
+scale = Vector2(12, 12)
+texture = ExtResource("9_kkp00")
+
+[node name="GameOver" type="Node2D" parent="."]
+visible = false
+
+[node name="Control" type="Control" parent="GameOver"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="GameOver/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 6.333
+anchor_top = 6.378
+anchor_right = 6.333
+anchor_bottom = 6.378
+offset_left = -253.32
+offset_top = -255.12
+offset_right = -213.32
+offset_bottom = -215.12
+
+[node name="RichTextLabel" type="RichTextLabel" parent="GameOver/Control/Panel"]
+z_index = 30
+layout_mode = 0
+offset_left = 147.0
+offset_top = 303.0
+offset_right = 367.0
+offset_bottom = 407.0
+theme_override_colors/default_color = Color(0.579952, 0.15966, 0.592059, 1)
+text = "Game Over
+(Press Space to continue)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Bars" type="Sprite2D" parent="GameOver"]
+z_index = 11
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(240, 626)
+scale = Vector2(1, 1.3)
+texture = ExtResource("10_uma06")
+region_enabled = true
+region_rect = Rect2(0, 0, 330, 22)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Child" to="." method="_on_child_body_entered"]
+[connection signal="dump_triggered" from="Dump" to="." method="_on_dump_dump_triggered"]

@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://4bcj40x1r0vi"]
+
+[ext_resource type="Script" uid="uid://c3nhex82b40ac" path="res://level/outro.gd" id="1_qy5cf"]
+[ext_resource type="PackedScene" uid="uid://u7mwyl0qbn8q" path="res://components/UI/dialog_component/dialog_component.tscn" id="1_rfcyn"]
+[ext_resource type="Texture2D" uid="uid://be0rk6md0ychs" path="res://assets/child.png" id="2_qy5cf"]
+[ext_resource type="Texture2D" uid="uid://si7ihxp5fxeq" path="res://assets/kitchen_wall.png" id="4_0c1do"]
+[ext_resource type="Texture2D" uid="uid://ebvjuxool8tj" path="res://assets/kitchen.png" id="5_04awv"]
+
+[node name="Outro" type="Node2D"]
+script = ExtResource("1_qy5cf")
+
+[node name="DialogComponent" parent="." instance=ExtResource("1_rfcyn")]
+dialog = PackedStringArray("[color=#421BAB]I was frozen, I couldnt\' move.[/color]", "[color=#421BAB]It was like I was locked under that table.[/color]")
+
+[node name="Child" type="Sprite2D" parent="."]
+z_index = 10
+texture_filter = 1
+position = Vector2(240, 430)
+scale = Vector2(15, 15)
+texture = ExtResource("2_qy5cf")
+region_enabled = true
+region_rect = Rect2(0, 0, 15, 20)
+
+[node name="Kitchen" type="Node2D" parent="."]
+
+[node name="KitchenWall" type="Sprite2D" parent="Kitchen"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(240, 320)
+scale = Vector2(4, 4)
+texture = ExtResource("4_0c1do")
+region_enabled = true
+region_rect = Rect2(0, 0, 120, 160)
+
+[node name="KitchenFloor" type="Sprite2D" parent="Kitchen"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(240, 610)
+scale = Vector2(2, 2)
+texture = ExtResource("5_04awv")
+region_enabled = true
+region_rect = Rect2(0, 0, 240, 50)
+
+[connection signal="dialog_ended" from="DialogComponent" to="." method="_on_dialog_component_dialog_ended"]

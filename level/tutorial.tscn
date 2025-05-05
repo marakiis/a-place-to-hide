@@ -1,0 +1,92 @@
+[gd_scene load_steps=13 format=3 uid="uid://b6v2s1yocjn42"]
+
+[ext_resource type="Script" uid="uid://c21y3foeu0vex" path="res://level/tutorial.gd" id="1_yiu3q"]
+[ext_resource type="PackedScene" uid="uid://u7mwyl0qbn8q" path="res://components/UI/dialog_component/dialog_component.tscn" id="2_f3h0t"]
+[ext_resource type="Texture2D" uid="uid://be0rk6md0ychs" path="res://assets/child.png" id="3_kqqvm"]
+[ext_resource type="Texture2D" uid="uid://wbkshkkmqyib" path="res://assets/personna.png" id="4_6fx4s"]
+[ext_resource type="PackedScene" uid="uid://phtk5qi0afj7" path="res://entities/Cubes/cube.tscn" id="5_4u0ye"]
+[ext_resource type="PackedScene" uid="uid://ck4f0qj3vnbv8" path="res://entities/character/character.tscn" id="6_5xbxn"]
+[ext_resource type="PackedScene" uid="uid://do1a8dhmu36wb" path="res://entities/child/child.tscn" id="7_22adx"]
+[ext_resource type="PackedScene" uid="uid://b2row0uida7od" path="res://entities/table/table.tscn" id="8_8s72s"]
+[ext_resource type="Script" uid="uid://dbnbdepc0bmgw" path="res://level/dump.gd" id="9_t7ujd"]
+[ext_resource type="Texture2D" uid="uid://si7ihxp5fxeq" path="res://assets/kitchen_wall.png" id="10_f3h0t"]
+[ext_resource type="Texture2D" uid="uid://ebvjuxool8tj" path="res://assets/kitchen.png" id="11_kqqvm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kgrm0"]
+size = Vector2(1200, 10)
+
+[node name="Tutorial" type="Node2D"]
+script = ExtResource("1_yiu3q")
+
+[node name="Tutorial" type="Node2D" parent="."]
+z_index = 20
+
+[node name="DialogComponent" parent="Tutorial" instance=ExtResource("2_f3h0t")]
+dialog = PackedStringArray("[color=#707070]Hey! Under the table again ?[/color]", "[color=#707070]You know you can\'t stay there too long ? The table will crush you.[/color]", "[color=#421BAB]...[/color]", "[color=#707070]I can help to throw those things away but I don\'t really know where they go.[/color]", "[color=#707070]Do you remember how to do it ? I can\'t do much without you.[/color]", "Tutorial:", "Use A/D to move Left/Right", "Hold space to carry the burden.", "Release space to drop it in front of you.")
+
+[node name="Child" type="Sprite2D" parent="Tutorial"]
+texture_filter = 1
+position = Vector2(69, 456)
+scale = Vector2(12, 12)
+texture = ExtResource("3_kqqvm")
+region_enabled = true
+region_rect = Rect2(15, 0, 15, 20)
+
+[node name="Persona" type="Sprite2D" parent="Tutorial"]
+texture_filter = 1
+position = Vector2(425, 460)
+scale = Vector2(12, 12)
+texture = ExtResource("4_6fx4s")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(15, 0, 15, 20)
+
+[node name="Cube" parent="." instance=ExtResource("5_4u0ye")]
+position = Vector2(240, 0)
+
+[node name="Persona" parent="." instance=ExtResource("6_5xbxn")]
+position = Vector2(240, 475)
+collision_layer = 4
+
+[node name="Child" parent="." instance=ExtResource("7_22adx")]
+z_index = 10
+position = Vector2(240, 620)
+script = null
+
+[node name="Table" parent="." instance=ExtResource("8_8s72s")]
+position = Vector2(240, 500)
+speed_by_load = 100.0
+
+[node name="Dump" type="Area2D" parent="."]
+z_index = 1
+position = Vector2(240, 700)
+collision_layer = 16
+collision_mask = 24
+monitorable = false
+script = ExtResource("9_t7ujd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dump"]
+shape = SubResource("RectangleShape2D_kgrm0")
+
+[node name="Kitchen" type="Node2D" parent="."]
+
+[node name="KitchenWall" type="Sprite2D" parent="Kitchen"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(240, 320)
+scale = Vector2(4, 4)
+texture = ExtResource("10_f3h0t")
+region_enabled = true
+region_rect = Rect2(0, 0, 120, 160)
+
+[node name="KitchenFloor" type="Sprite2D" parent="Kitchen"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(240, 650)
+scale = Vector2(2, 2)
+texture = ExtResource("11_kqqvm")
+region_enabled = true
+region_rect = Rect2(0, 0, 240, 10)
+
+[connection signal="dialog_ended" from="Tutorial/DialogComponent" to="." method="_on_dialog_component_dialog_ended"]
+[connection signal="dump_triggered" from="Dump" to="." method="_on_dump_dump_triggered"]

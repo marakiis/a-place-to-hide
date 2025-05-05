@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://do1a8dhmu36wb"]
+
+[ext_resource type="Script" uid="uid://dqdc5sac5sgr0" path="res://entities/child/child.gd" id="1_cruhx"]
+[ext_resource type="Texture2D" uid="uid://be0rk6md0ychs" path="res://assets/child.png" id="2_x6bi8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ne047"]
+
+[node name="Child" type="Area2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_cruhx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("2_x6bi8")
+region_enabled = true
+region_rect = Rect2(0, 0, 15, 20)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ne047")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

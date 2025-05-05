@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://c4fqymmvq4fkf"]
+
+[ext_resource type="PackedScene" uid="uid://u7mwyl0qbn8q" path="res://components/UI/dialog_component/dialog_component.tscn" id="1_k5whk"]
+[ext_resource type="Script" uid="uid://dge44ry45li5" path="res://level/intro.gd" id="1_xenuo"]
+[ext_resource type="Texture2D" uid="uid://bovm4p261ub64" path="res://assets/mother.png" id="2_25u4o"]
+[ext_resource type="Texture2D" uid="uid://48ice2xv6jmk" path="res://assets/father.png" id="3_xenuo"]
+[ext_resource type="Texture2D" uid="uid://si7ihxp5fxeq" path="res://assets/kitchen_wall.png" id="5_2hhw3"]
+[ext_resource type="Texture2D" uid="uid://ebvjuxool8tj" path="res://assets/kitchen.png" id="6_7biaf"]
+
+[node name="Intro" type="Node2D"]
+script = ExtResource("1_xenuo")
+
+[node name="DialogComponent" parent="." instance=ExtResource("1_k5whk")]
+anchors_preset = 9
+anchor_right = 0.0
+grow_horizontal = 1
+dialog = PackedStringArray("*Ring* *Ring*", "[color=#9E89AB]I\'m home.[/color]", "[color=#16AB43]You\'re late.[/color]", "[color=#9E89AB]...[/color]", "[color=#16AB43]We\'re eating, the homework are done, the shower is taken, ...[/color]", "[color=#9E89AB]I get it, [/color]", "[color=#16AB43]No you dont\'t ! You never \"get it\" !!! [/color]", "*The kid slides under the table trying to hide from the argument*")
+
+[node name="Mother" type="Sprite2D" parent="."]
+z_index = 5
+texture_filter = 1
+position = Vector2(94.5, 383)
+scale = Vector2(7, 7)
+texture = ExtResource("2_25u4o")
+
+[node name="Father" type="Sprite2D" parent="."]
+z_index = 5
+texture_filter = 1
+position = Vector2(385, 383)
+scale = Vector2(7, 7)
+texture = ExtResource("3_xenuo")
+
+[node name="Kitchen2" type="Node2D" parent="."]
+
+[node name="KitchenWall" type="Sprite2D" parent="Kitchen2"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(240, 320)
+scale = Vector2(4, 4)
+texture = ExtResource("5_2hhw3")
+region_enabled = true
+region_rect = Rect2(0, 0, 120, 160)
+
+[node name="KitchenFloor" type="Sprite2D" parent="Kitchen2"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(240, 610)
+scale = Vector2(2, 2)
+texture = ExtResource("6_7biaf")
+region_enabled = true
+region_rect = Rect2(0, 0, 240, 50)
+
+[connection signal="dialog_ended" from="DialogComponent" to="." method="_on_dialog_component_dialog_ended"]

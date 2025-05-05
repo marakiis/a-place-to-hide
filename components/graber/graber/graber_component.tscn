@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://mr106ev7cge1"]
+
+[ext_resource type="Script" uid="uid://car5o434coj32" path="res://components/graber/graber/graber_component.gd" id="1_ky3mq"]
+
+[node name="GraberComponent" type="Node"]
+script = ExtResource("1_ky3mq")

@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://phtk5qi0afj7"]
+
+[ext_resource type="Script" uid="uid://dxio2fks4dako" path="res://entities/Cubes/cube.gd" id="1_5ovs2"]
+[ext_resource type="PackedScene" uid="uid://cvpkfp4tvqwfs" path="res://components/plateformer/gravity/gravity_component.tscn" id="2_2i0pr"]
+[ext_resource type="Texture2D" uid="uid://nb3kuo5j6cdy" path="res://assets/godot.png" id="2_5ovs2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ea25h"]
+size = Vector2(60, 57)
+
+[node name="Cube" type="CharacterBody2D" node_paths=PackedStringArray("gravity_component")]
+z_index = 5
+collision_layer = 8
+collision_mask = 27
+script = ExtResource("1_5ovs2")
+gravity_component = NodePath("GravityComponent")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(3, 3)
+texture = ExtResource("2_5ovs2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_ea25h")
+
+[node name="GravityComponent" parent="." instance=ExtResource("2_2i0pr")]

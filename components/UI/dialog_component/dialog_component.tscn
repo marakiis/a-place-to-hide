@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://u7mwyl0qbn8q"]
+
+[ext_resource type="Script" uid="uid://ddbky7rof0c2g" path="res://components/UI/dialog_component/dialog_component.gd" id="1_86gc3"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_86gc3"]
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 75
+
+[node name="DialogComponent" type="Control"]
+z_index = 20
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_86gc3")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 564.0
+offset_right = 480.0
+offset_bottom = 645.0
+theme_override_styles/panel = SubResource("StyleBoxLine_86gc3")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_right = 483.0
+offset_bottom = 83.0
+bbcode_enabled = true
+text = "TOTO"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
